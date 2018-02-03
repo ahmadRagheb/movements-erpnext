@@ -53,6 +53,13 @@ class Customer(TransactionBase):
 		self.flags.old_lead = self.lead_name
 		validate_party_accounts(self)
 		self.validate_credit_limit_on_change()
+		self.arabic_name()
+
+	"""  Return a full arabic name after the doc is save  """
+	def arabic_name(self):
+		arabic_name = u' '.join(
+			(self.first_name, self.middle_name,self.last_name)).encode('utf-8').strip()
+		self.full_arabic_name = arabic_name
 
 	def on_update(self):
 		self.validate_name_with_customer_group()
